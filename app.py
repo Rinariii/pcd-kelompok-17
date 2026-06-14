@@ -45,7 +45,7 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     .stApp {
-        background-color: #f8fafc !important;
+        background-color: #ffffff !important;
         color: #334155 !important;
     }
     
@@ -55,7 +55,7 @@ st.markdown("""
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background: #f8fafc;
+        background: #ffffff;
     }
     ::-webkit-scrollbar-thumb {
         background: #cbd5e1;
@@ -227,7 +227,7 @@ st.markdown("""
         background-color: #ffffff;
     }
     .styled-table th {
-        background-color: #f8fafc; 
+        background-color: #ffffff; 
         color: #475569; 
         text-align: left;
         font-weight: 700; 
@@ -240,10 +240,10 @@ st.markdown("""
         color: #334155; 
     }
     .styled-table tbody tr:nth-of-type(even) { 
-        background-color: #f8fafc; 
+        background-color: #ffffff; 
     }
     .styled-table tbody tr:hover { 
-        background-color: #f1f5f9; 
+        background-color: #f8fafc; 
         transition: background-color 0.2s ease; 
     }
     
@@ -260,7 +260,7 @@ st.markdown("""
         margin-bottom: 15px;
     }
     .pipeline-step {
-        background-color: #f8fafc; 
+        background-color: #ffffff; 
         border: 1px solid #e2e8f0; 
         border-radius: 8px;
         padding: 8px 14px; 
@@ -717,6 +717,7 @@ else:
         st.error("Gagal memuat gambar. Harap unggah gambar yang valid.")
     else:
         # --- Build all pipeline stages ---
+        img_rgb         = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
         img_resized     = cv2.resize(img_bgr, (224, 224), interpolation=cv2.INTER_LINEAR)
         img_resized_rgb = cv2.cvtColor(img_resized, cv2.COLOR_BGR2RGB)
 
@@ -777,12 +778,12 @@ else:
         st.markdown('<div class="section-header" style="margin-bottom:8px;">1. Tahapan Pipeline DIP (SSR + Gamma + Segmentasi)</div>', unsafe_allow_html=True)
         
         # Row 1: Image Enhancement
-        st.markdown("<h5 style='margin-top:10px; margin-bottom:15px; color:#cbd5e1;'>Image Enhancement Stages</h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='margin-top:10px; margin-bottom:15px; color:#475569;'>Image Enhancement Stages</h5>", unsafe_allow_html=True)
         e_col1, e_col2, e_col3 = st.columns(3)
         with e_col1:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">1. Hasil Resize</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">1. Hasil Resize</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_resized_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -792,7 +793,7 @@ else:
         with e_col2:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">2. SSR (Retinex)</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">2. SSR (Retinex)</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_ssr_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -802,7 +803,7 @@ else:
         with e_col3:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">3. Gamma (E*)</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">3. Gamma (E*)</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_gamma_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -811,7 +812,7 @@ else:
             """, unsafe_allow_html=True)
 
         # Row 2: Segmentation
-        st.markdown("<h5 style='margin-top:20px; margin-bottom:15px; color:#cbd5e1;'>Otsu Segmentation & Masking Stages</h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='margin-top:20px; margin-bottom:15px; color:#475569;'>Otsu Segmentation & Masking Stages</h5>", unsafe_allow_html=True)
         s_col1, s_col2, s_col3, s_col4 = st.columns(4)
 
         # Replicate Otsu mask extraction for visualization
@@ -824,7 +825,7 @@ else:
         with s_col1:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">4. Otsu Saturation</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">4. Otsu Saturation</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(mask_s_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -834,7 +835,7 @@ else:
         with s_col2:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">5. Otsu Grayscale</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">5. Otsu Grayscale</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(mask_g_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -844,7 +845,7 @@ else:
         with s_col3:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">6. Combined Otsu</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">6. Combined Otsu</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(combined_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -854,7 +855,7 @@ else:
         with s_col4:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">7. Hasil Segmentasi</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">7. Hasil Segmentasi</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_segmented_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -881,7 +882,6 @@ else:
             <div class="saas-card" style="margin-bottom:0;">
                 <div>
                     <h4 class="card-title">MobileNetV2 - S11</h4>
-                    <span class="preproc-tag">Masukan: Mentah (Hanya Resize)</span>
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Tingkat Keyakinan</div>
@@ -900,7 +900,6 @@ else:
             <div class="saas-card" style="margin-bottom:0;">
                 <div>
                     <h4 class="card-title">SVM - S5</h4>
-                    <span class="preproc-tag">Masukan: SSR + Gamma + Segmentasi (220 dim)</span>
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Skor Keputusan</div>
@@ -919,7 +918,6 @@ else:
             <div class="saas-card" style="margin-bottom:0;">
                 <div>
                     <h4 class="card-title">Random Forest - S9</h4>
-                    <span class="preproc-tag">Masukan: SSR + Gamma + Segmentasi (220 dim)</span>
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Tingkat Keyakinan</div>
@@ -939,10 +937,10 @@ else:
             with st.spinner("Menghitung heatmap aktivasi Grad-CAM..."):
                 try:
                     heatmap = make_gradcam_heatmap(model_cnn, cnn_input)
-                    heatmap_resized = cv2.resize(heatmap, (img_resized.shape[1], img_resized.shape[0]))
+                    heatmap_resized = cv2.resize(heatmap, (img_bgr.shape[1], img_bgr.shape[0]))
                     heatmap_uint8 = np.uint8(255 * heatmap_resized)
                     heatmap_color = cv2.applyColorMap(heatmap_uint8, cv2.COLORMAP_JET)
-                    img_u8  = to_uint8(img_resized)
+                    img_u8  = to_uint8(img_bgr)
                     overlay = cv2.addWeighted(img_u8, 0.65, heatmap_color, 0.35, 0)
                     overlay_rgb = cv2.cvtColor(overlay, cv2.COLOR_BGR2RGB)
 
@@ -950,8 +948,8 @@ else:
                     with g_col1:
                         st.markdown(f"""
                         <div class="saas-card" style="text-align:center; padding:16px;">
-                            <h5 style="margin-top:0; margin-bottom:12px; color:#0f172a;">Masukan CNN (Resize Mentah)</h5>
-                            <img src="data:image/png;base64,{arr_to_base64(img_resized_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
+                            <h5 style="margin-top:0; margin-bottom:12px; color:#0f172a;">Citra Asli</h5>
+                            <img src="data:image/png;base64,{arr_to_base64(img_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                         </div>
                         """, unsafe_allow_html=True)
                     with g_col2:
