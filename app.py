@@ -365,7 +365,7 @@ display_metrics = load_display_metrics()
 @st.cache_resource
 def load_cnn_model():
     # S11: CNN raw - best performing CNN (F1=0.987)
-    model_path = project_root / "results" / "models" / "mobilenetv2_s11_stage2.keras"
+    model_path = project_root / "results" / "models" / "mobilenetv2_s11_stage2.h5"
     if not model_path.exists():
         st.sidebar.error(f"CNN model not found: {model_path}")
         return None
@@ -775,8 +775,11 @@ else:
 
         # --- DIP Pipeline Stages ---
         st.markdown('<div class="section-header" style="margin-bottom:8px;">1. Tahapan Pipeline DIP (SSR + Gamma + Segmentasi)</div>', unsafe_allow_html=True)
-        p_col1, p_col2, p_col3, p_col4 = st.columns(4)
-        with p_col1:
+        
+        # Row 1: Image Enhancement
+        st.markdown("<h5 style='margin-top:10px; margin-bottom:15px; color:#cbd5e1;'>Image Enhancement Stages</h5>", unsafe_allow_html=True)
+        e_col1, e_col2, e_col3 = st.columns(3)
+        with e_col1:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
                 <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">1. Hasil Resize</div>
@@ -786,17 +789,17 @@ else:
                 <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">224×224 - Masukan CNN (S11)</div>
             </div>
             """, unsafe_allow_html=True)
-        with p_col2:
+        with e_col2:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">2. SSR</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">2. SSR (Retinex)</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_ssr_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
-                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Koreksi iluminasi CIELAB</div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Koreksi iluminasi CIELAB LAB L</div>
             </div>
             """, unsafe_allow_html=True)
-        with p_col3:
+        with e_col3:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
                 <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">3. Gamma (E*)</div>
@@ -806,18 +809,60 @@ else:
                 <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Peningkatan Kualitas Terpilih (Nilai F1)</div>
             </div>
             """, unsafe_allow_html=True)
-        with p_col4:
+
+        # Row 2: Segmentation
+        st.markdown("<h5 style='margin-top:20px; margin-bottom:15px; color:#cbd5e1;'>Otsu Segmentation & Masking Stages</h5>", unsafe_allow_html=True)
+        s_col1, s_col2, s_col3, s_col4 = st.columns(4)
+
+        # Replicate Otsu mask extraction for visualization
+        hsv_temp = cv2.cvtColor(to_uint8(img_gamma), cv2.COLOR_BGR2HSV)
+        gray_temp = cv2.cvtColor(to_uint8(img_gamma), cv2.COLOR_BGR2GRAY)
+        _, mask_s_otsu = cv2.threshold(hsv_temp[:, :, 1], 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        _, mask_g_otsu = cv2.threshold(gray_temp, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        combined_otsu = cv2.bitwise_or(mask_s_otsu, mask_g_otsu)
+
+        with s_col1:
             st.markdown(f"""
             <div class="saas-card" style="padding:16px; min-height:300px;">
-                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">4. Hasil Segmentasi</div>
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">4. Otsu Saturation</div>
+                <div style="text-align:center; margin-bottom:10px;">
+                    <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(mask_s_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Mask Biner Channel Saturation (S)</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with s_col2:
+            st.markdown(f"""
+            <div class="saas-card" style="padding:16px; min-height:300px;">
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">5. Otsu Grayscale</div>
+                <div style="text-align:center; margin-bottom:10px;">
+                    <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(mask_g_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Mask Biner Channel Gray</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with s_col3:
+            st.markdown(f"""
+            <div class="saas-card" style="padding:16px; min-height:300px;">
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">6. Combined Otsu</div>
+                <div style="text-align:center; margin-bottom:10px;">
+                    <img src="data:image/png;base64,{arr_to_base64(cv2.cvtColor(combined_otsu, cv2.COLOR_GRAY2RGB))}" style="max-width:100%; height:auto; border-radius:8px;" />
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Bitwise OR Combined Mask</div>
+            </div>
+            """, unsafe_allow_html=True)
+        with s_col4:
+            st.markdown(f"""
+            <div class="saas-card" style="padding:16px; min-height:300px;">
+                <div class="dip-step-title" style="font-size:0.85rem; font-weight:700; color:#f8fafc; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #FF6B4A; padding-bottom:8px; margin-bottom:12px; text-align:center;">7. Hasil Segmentasi</div>
                 <div style="text-align:center; margin-bottom:10px;">
                     <img src="data:image/png;base64,{arr_to_base64(img_segmented_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
-                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Masukan SVM & RF (Rasio Objek {obj_ratio:.0%})</div>
+                <div style="font-size:0.75rem; color:#94a3b8; text-align:center;">Morfologi + Masking Akhir (Rasio {obj_ratio:.0%})</div>
             </div>
             """, unsafe_allow_html=True)
 
-        st.caption("Pipeline lengkap (kolom 2–4) digunakan oleh SVM (S5) dan RF (S9). CNN (S11) hanya menggunakan kolom 1 (resize mentah).")
+        st.caption("Pipeline lengkap (kolom 2–7) digunakan oleh SVM (S5) dan RF (S9). CNN (S11) hanya menggunakan kolom 1 (resize mentah).")
 
         # --- Multi-model Inference Cards ---
         st.markdown('<div class="section-header" style="margin-top:0;">2. Inferensi Multi-Model</div>', unsafe_allow_html=True)
