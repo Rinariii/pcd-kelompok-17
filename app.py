@@ -45,8 +45,8 @@ st.markdown("""
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     .stApp {
-        background-color: #0b0f19 !important;
-        color: #cbd5e1 !important;
+        background-color: #f8fafc !important;
+        color: #334155 !important;
     }
     
     /* Scrollbars styling */
@@ -55,23 +55,23 @@ st.markdown("""
         height: 8px;
     }
     ::-webkit-scrollbar-track {
-        background: #0b0f19;
+        background: #f8fafc;
     }
     ::-webkit-scrollbar-thumb {
-        background: #1e293b;
+        background: #cbd5e1;
         border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-        background: #334155;
+        background: #94a3b8;
     }
 
     /* Sidebar Styling */
     section[data-testid="stSidebar"] {
-        background-color: #151c2c !important;
-        border-right: 1px solid #1e293b !important;
+        background-color: #ffffff !important;
+        border-right: 1px solid #e2e8f0 !important;
     }
     section[data-testid="stSidebar"] * {
-        color: #cbd5e1 !important;
+        color: #334155 !important;
     }
     section[data-testid="stSidebar"] h1, 
     section[data-testid="stSidebar"] h2, 
@@ -79,7 +79,7 @@ st.markdown("""
     section[data-testid="stSidebar"] h4,
     section[data-testid="stSidebar"] h5,
     section[data-testid="stSidebar"] h6 {
-        color: #f8fafc !important;
+        color: #0f172a !important;
     }
 
     /* Equal height columns styling (Desktop) */
@@ -100,11 +100,11 @@ st.markdown("""
 
     /* Modern Classy Cards */
     .saas-card {
-        background-color: #151c2c;
-        border: 1px solid #1e293b;
+        background-color: #ffffff;
+        border: 1px solid #f1f5f9;
         border-radius: 16px;
         padding: 24px;
-        box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 10px 15px -3px rgba(0, 0, 0, 0.03);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         margin-bottom: 24px;
         height: 100% !important;
@@ -122,8 +122,8 @@ st.markdown("""
     .card-title {
         margin-top: 0 !important;
         font-weight: 700 !important;
-        color: #f8fafc !important;
-        border-bottom: 1px solid #1e293b !important;
+        color: #0f172a !important;
+        border-bottom: 1px solid #f1f5f9 !important;
         padding-bottom: 12px !important;
         min-height: 56px !important;
         display: flex !important;
@@ -136,11 +136,11 @@ st.markdown("""
     .section-header {
         font-size: 1.35rem; 
         font-weight: 700; 
-        color: #f8fafc;
+        color: #0f172a;
         margin-top: 1.5rem; 
         margin-bottom: 1.25rem;
         padding-bottom: 8px; 
-        border-bottom: 2px solid #1e293b;
+        border-bottom: 2px solid #f1f5f9;
         position: relative;
     }
     .section-header::after {
@@ -155,13 +155,13 @@ st.markdown("""
     
     /* Badges */
     .sidebar-badge {
-        background-color: rgba(255, 107, 74, 0.1); 
+        background-color: #fff0eb; 
         color: #FF6B4A; 
         font-weight: 700;
         font-size: 0.75rem; 
         padding: 4px 10px; 
         border-radius: 6px;
-        border: 1px solid rgba(255, 107, 74, 0.25); 
+        border: 1px solid #ffe2d9; 
         display: inline-block;
     }
     .badge {
@@ -174,19 +174,19 @@ st.markdown("""
         letter-spacing: 0.5px;
     }
     .badge-fresh { 
-        background-color: rgba(16, 185, 129, 0.12); 
-        color: #10b981; 
-        border: 1px solid rgba(16, 185, 129, 0.25); 
+        background-color: #e6fffa; 
+        color: #0d9488; 
+        border: 1px solid #b2f5ea; 
     }
     .badge-rotten { 
-        background-color: rgba(239, 68, 68, 0.12); 
-        color: #ef4444; 
-        border: 1px solid rgba(239, 68, 68, 0.25); 
+        background-color: #fff5f5; 
+        color: #e53e3e; 
+        border: 1px solid #fed7d7; 
     }
     .badge-na { 
-        background-color: rgba(148, 163, 184, 0.1); 
-        color: #cbd5e1; 
-        border: 1px solid rgba(148, 163, 184, 0.2); 
+        background-color: #f1f5f9; 
+        color: #475569; 
+        border: 1px solid #e2e8f0; 
     }
     
     /* Styled File Uploader container (Full Width and Centered) */
@@ -194,20 +194,20 @@ st.markdown("""
         border: 2px dashed #FF6B4A !important; 
         border-radius: 16px !important; 
         padding: 24px !important;
-        background-color: #151c2c !important; 
-        box-shadow: 0 4px 20px rgba(0,0,0,0.25) !important;
+        background-color: #ffffff !important; 
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02) !important;
         width: 100% !important;
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
     div[data-testid="stFileUploader"] section {
-        background-color: #151c2c !important;
+        background-color: #ffffff !important;
         width: 100% !important;
     }
     div[data-testid="stFileUploader"] label, 
     div[data-testid="stFileUploader"] p, 
     div[data-testid="stFileUploader"] span {
-        color: #cbd5e1 !important;
+        color: #475569 !important;
     }
     /* Stretch parent container of file uploader to full width */
     div.element-container:has(div[data-testid="stFileUploader"]) {
@@ -223,27 +223,27 @@ st.markdown("""
         font-size: 0.95rem;
         border-radius: 12px; 
         overflow: hidden; 
-        border: 1px solid #1e293b; 
-        background-color: #151c2c;
+        border: 1px solid #f1f5f9; 
+        background-color: #ffffff;
     }
     .styled-table th {
-        background-color: #1e293b; 
-        color: #f8fafc; 
+        background-color: #f8fafc; 
+        color: #475569; 
         text-align: left;
         font-weight: 700; 
         padding: 14px 16px; 
-        border-bottom: 2px solid #1e293b;
+        border-bottom: 2px solid #f1f5f9;
     }
     .styled-table td { 
         padding: 14px 16px; 
-        border-bottom: 1px solid #1e293b; 
-        color: #cbd5e1; 
+        border-bottom: 1px solid #f1f5f9; 
+        color: #334155; 
     }
     .styled-table tbody tr:nth-of-type(even) { 
-        background-color: rgba(30, 41, 59, 0.3); 
+        background-color: #f8fafc; 
     }
     .styled-table tbody tr:hover { 
-        background-color: rgba(30, 41, 59, 0.6); 
+        background-color: #f1f5f9; 
         transition: background-color 0.2s ease; 
     }
     
@@ -254,30 +254,30 @@ st.markdown("""
         align-items: center; 
         gap: 10px;
         padding: 16px; 
-        background-color: #151c2c; 
+        background-color: #ffffff; 
         border-radius: 12px;
-        border: 1px solid #1e293b; 
+        border: 1px solid #f1f5f9; 
         margin-bottom: 15px;
     }
     .pipeline-step {
-        background-color: #1e293b; 
-        border: 1px solid #334155; 
+        background-color: #f8fafc; 
+        border: 1px solid #e2e8f0; 
         border-radius: 8px;
         padding: 8px 14px; 
         font-size: 0.85rem; 
         font-weight: 600; 
-        color: #cbd5e1;
+        color: #334155;
     }
     .pipeline-arrow { 
-        color: #64748b; 
+        color: #94a3b8; 
         font-size: 1.1rem; 
         font-weight: bold; 
     }
     
     /* Image processing steps */
     .dip-step-card {
-        background-color: #1e293b; 
-        border: 1px solid #1e293b;
+        background-color: #ffffff; 
+        border: 1px solid #f1f5f9;
         border-radius: 8px 8px 0 0; 
         padding: 8px 12px; 
         text-align: center; 
@@ -286,7 +286,7 @@ st.markdown("""
     .dip-step-title { 
         font-size: 0.85rem; 
         font-weight: 700; 
-        color: #f8fafc; 
+        color: #0f172a; 
         text-transform: uppercase; 
         letter-spacing: 0.5px; 
         border-bottom: 2px solid #FF6B4A;
@@ -297,13 +297,13 @@ st.markdown("""
         font-weight: 600; 
         padding: 2px 8px;
         border-radius: 4px; 
-        background-color: #1e293b; 
-        color: #94a3b8;
-        border: 1px solid #334155; 
+        background-color: #f1f5f9; 
+        color: #475569;
+        border: 1px solid #e2e8f0; 
         margin-top: 6px;
     }
     h1, h2, h3, h4, h5, h6 { 
-        color: #f8fafc !important; 
+        color: #0f172a !important; 
     }
     
     /* Mobile Responsiveness & Stacking overrides */
@@ -407,8 +407,8 @@ with st.sidebar:
     st.markdown("""
     <div style="text-align:center; margin-top:15px; margin-bottom:25px;">
         <span style="font-size:3.5rem;">🍎</span>
-        <h2 style="margin-top:10px; font-weight:800; font-size:1.4rem; color:#f8fafc; letter-spacing:-0.5px;">Analisis Kualitas Buah</h2>
-        <span style="color:#94a3b8; font-size:0.8rem; font-weight:500;">Platform Demo Akademik</span>
+        <h2 style="margin-top:10px; font-weight:800; font-size:1.4rem; color:#0f172a; letter-spacing:-0.5px;">Analisis Kualitas Buah</h2>
+        <span style="color:#475569; font-size:0.8rem; font-weight:500;">Platform Demo Akademik</span>
     </div>
     """, unsafe_allow_html=True)
 
@@ -419,25 +419,25 @@ with st.sidebar:
     rf_acc  = f"{display_metrics['rf']['accuracy']*100:.2f}%"  if "rf"  in display_metrics else "N/A"
 
     st.markdown(f"""
-    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
-        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">MobileNetV2 (CNN) - S11</h4>
-        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">Gambar mentah, tanpa pra-pemrosesan. Akurasi tertinggi secara keseluruhan.</p>
+    <div style="background:#ffffff; padding:16px; border-radius:12px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#0f172a;">MobileNetV2 (CNN) - S11</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#475569; line-height:1.3;">Gambar mentah, tanpa pra-pemrosesan. Akurasi tertinggi secara keseluruhan.</p>
         <span class="sidebar-badge">{cnn_acc} AKURASI</span>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown(f"""
-    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
-        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">Support Vector Machine - S5</h4>
-        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">SSR + Gamma + Segmentasi + 220 fitur handcrafted.</p>
+    <div style="background:#ffffff; padding:16px; border-radius:12px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#0f172a;">Support Vector Machine - S5</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#475569; line-height:1.3;">SSR + Gamma + Segmentasi + 220 fitur handcrafted.</p>
         <span class="sidebar-badge">{svm_acc} AKURASI</span>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown(f"""
-    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
-        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">Random Forest - S9</h4>
-        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">Pipeline identik S5, pengklasifikasi diganti Random Forest.</p>
+    <div style="background:#ffffff; padding:16px; border-radius:12px; border:1px solid #f1f5f9; margin-bottom:12px; box-shadow: 0 4px 6px rgba(0,0,0,0.01);">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#0f172a;">Random Forest - S9</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#475569; line-height:1.3;">Pipeline identik S5, pengklasifikasi diganti Random Forest.</p>
         <span class="sidebar-badge">{rf_acc} AKURASI</span>
     </div>
     """, unsafe_allow_html=True)
@@ -447,8 +447,8 @@ with st.sidebar:
 # ----------------------------------------------------
 st.markdown("""
 <div style="margin-top:10px; margin-bottom:30px;">
-    <h1 style="font-size:2.5rem; font-weight:800; color:#f8fafc; margin-bottom:8px; letter-spacing:-1px;">Dashboard Analisis Kualitas Buah</h1>
-    <h3 style="font-size:1.15rem; font-weight:400; color:#94a3b8; margin:0; line-height:1.5; max-width:900px;">
+    <h1 style="font-size:2.5rem; font-weight:800; color:#0f172a; margin-bottom:8px; letter-spacing:-1px;">Dashboard Analisis Kualitas Buah</h1>
+    <h3 style="font-size:1.15rem; font-weight:400; color:#475569; margin:0; line-height:1.5; max-width:900px;">
         Evaluasi Komparatif Model Machine Learning Klasik dan Deep Learning untuk Klasifikasi Kualitas Buah
     </h3>
 </div>
@@ -465,23 +465,23 @@ with kpi_col1:
     <div class="saas-card">
         <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:1px;">Akurasi Terbaik</div>
         <div style="font-size:1.75rem; font-weight:800; color:#FF6B4A; margin-top:6px; letter-spacing:-1px;">{best_acc_val*100:.2f}%</div>
-        <div style="font-size:0.8rem; color:#cbd5e1; margin-top:4px; font-weight:500;">MobileNetV2 - S11 (CNN mentah)</div>
+        <div style="font-size:0.8rem; color:#475569; margin-top:4px; font-weight:500;">MobileNetV2 - S11 (CNN mentah)</div>
     </div>
     """, unsafe_allow_html=True)
 with kpi_col2:
     st.markdown(f"""
     <div class="saas-card">
         <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:1px;">Model Tercepat</div>
-        <div style="font-size:1.75rem; font-weight:800; color:#f8fafc; margin-top:6px; letter-spacing:-1px;">Random Forest</div>
-        <div style="font-size:0.8rem; color:#cbd5e1; margin-top:4px; font-weight:500;">{rf_ms:.3f} ms / citra</div>
+        <div style="font-size:1.75rem; font-weight:800; color:#0f172a; margin-top:6px; letter-spacing:-1px;">Random Forest</div>
+        <div style="font-size:0.8rem; color:#475569; margin-top:4px; font-weight:500;">{rf_ms:.3f} ms / citra</div>
     </div>
     """, unsafe_allow_html=True)
 with kpi_col3:
     st.markdown("""
     <div class="saas-card">
         <div style="font-size:0.75rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:1px;">Fitur Handcrafted</div>
-        <div style="font-size:1.75rem; font-weight:800; color:#f8fafc; margin-top:6px; letter-spacing:-1px;">220 Dimensi</div>
-        <div style="font-size:0.8rem; color:#cbd5e1; margin-top:4px; font-weight:500;">Warna HSV + Tekstur GLCM + Bentuk</div>
+        <div style="font-size:1.75rem; font-weight:800; color:#0f172a; margin-top:6px; letter-spacing:-1px;">220 Dimensi</div>
+        <div style="font-size:0.8rem; color:#475569; margin-top:4px; font-weight:500;">Warna HSV + Tekstur GLCM + Bentuk</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -504,8 +504,8 @@ if uploaded_file is None:
     with col_p_1:
         st.markdown("""
         <div class="saas-card">
-            <h4 style="margin-top:0; font-weight:700; color:#f8fafc;">Pipeline ML Klasik - S5 (SVM) & S9 (RF)</h4>
-            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:15px;">Koreksi iluminasi SSR, enhancement Gamma (E*), segmentasi Otsu, ekstraksi 220 fitur handcrafted, lalu SVM atau RF.</p>
+            <h4 style="margin-top:0; font-weight:700; color:#0f172a;">Pipeline ML Klasik - S5 (SVM) & S9 (RF)</h4>
+            <p style="font-size:0.8rem; color:#475569; margin-bottom:15px;">Koreksi iluminasi SSR, enhancement Gamma (E*), segmentasi Otsu, ekstraksi 220 fitur handcrafted, lalu SVM atau RF.</p>
             <div class="pipeline-container">
                 <span class="pipeline-step">Input</span>
                 <span class="pipeline-arrow">➔</span>
@@ -523,8 +523,8 @@ if uploaded_file is None:
     with col_p_2:
         st.markdown("""
         <div class="saas-card">
-            <h4 style="margin-top:0; font-weight:700; color:#f8fafc;">Pipeline CNN - S11 (Mentah, Terbaik)</h4>
-            <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:15px;">MobileNetV2 dengan transfer learning, tanpa restorasi atau perbaikan citra. Temuan kunci: pra-pemrosesan tidak diperlukan oleh CNN.</p>
+            <h4 style="margin-top:0; font-weight:700; color:#0f172a;">Pipeline CNN - S11 (Mentah, Terbaik)</h4>
+            <p style="font-size:0.8rem; color:#475569; margin-bottom:15px;">MobileNetV2 dengan transfer learning, tanpa restorasi atau perbaikan citra. Temuan kunci: pra-pemrosesan tidak diperlukan oleh CNN.</p>
             <div class="pipeline-container">
                 <span class="pipeline-step">Input</span>
                 <span class="pipeline-arrow">➔</span>
@@ -558,26 +558,26 @@ if uploaded_file is None:
         if traj_rows:
             df_traj = pd.DataFrame(traj_rows)
             st.markdown('<div style="display:none;">', unsafe_allow_html=True)
-            plt.style.use("dark_background")
-            fig_t, ax_t = plt.subplots(figsize=(13, 4), facecolor='#151c2c')
-            ax_t.set_facecolor('#151c2c')
+            plt.style.use("default")
+            fig_t, ax_t = plt.subplots(figsize=(13, 4), facecolor='#ffffff')
+            ax_t.set_facecolor('#ffffff')
             colors = ["#475569" if m in ("SVM", "RF") else "#FF6B4A" for m in df_traj["Model"]]
             bars = ax_t.bar(df_traj["Skenario"], df_traj["F1"], color=colors, width=0.55)
             for bar, val in zip(bars, df_traj["F1"]):
                 ax_t.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.005,
-                          f"{val:.3f}", ha="center", va="bottom", fontsize=7.5, fontweight="bold", color="#cbd5e1")
+                          f"{val:.3f}", ha="center", va="bottom", fontsize=7.5, fontweight="bold", color="#334155")
             ax_t.set_ylim(0.5, 1.05)
-            ax_t.set_ylabel("F1-Score Terbobot", fontsize=9, color="#cbd5e1")
+            ax_t.set_ylabel("F1-Score Terbobot", fontsize=9, color="#334155")
             ax_t.set_xlabel("")
             ax_t.spines["top"].set_visible(False)
             ax_t.spines["right"].set_visible(False)
-            ax_t.spines["left"].set_color("#1e293b")
-            ax_t.spines["bottom"].set_color("#1e293b")
-            ax_t.tick_params(colors="#94a3b8", labelsize=9)
+            ax_t.spines["left"].set_color("#e2e8f0")
+            ax_t.spines["bottom"].set_color("#e2e8f0")
+            ax_t.tick_params(colors="#475569", labelsize=9)
             from matplotlib.patches import Patch
             ax_t.legend(handles=[Patch(color="#475569", label="ML Klasik (SVM/RF)"),
                                   Patch(color="#FF6B4A", label="CNN (MobileNetV2)")],
-                        fontsize=8, frameon=False, loc="lower right", labelcolor="#cbd5e1")
+                        fontsize=8, frameon=False, loc="lower right", labelcolor="#334155")
             plt.tight_layout()
             
             buf_t = io.BytesIO()
@@ -589,8 +589,8 @@ if uploaded_file is None:
 
             st.markdown(f"""
             <div class="saas-card">
-                <h4 style="margin-top:0; font-weight:700; color:#f8fafc; margin-bottom:4px;">Trayektori F1-Score: S1 ke S11</h4>
-                <p style="font-size:0.8rem; color:#94a3b8; margin-bottom:15px;">Setiap skenario mengubah satu variabel. Grafik menunjukkan kontribusi bersih dari setiap komponen pipeline.</p>
+                <h4 style="margin-top:0; font-weight:700; color:#0f172a; margin-bottom:4px;">Trayektori F1-Score: S1 ke S11</h4>
+                <p style="font-size:0.8rem; color:#475569; margin-bottom:15px;">Setiap skenario mengubah satu variabel. Grafik menunjukkan kontribusi bersih dari setiap komponen pipeline.</p>
                 <div style="text-align:center;">
                     <img src="data:image/png;base64,{img_b64_t}" style="max-width:100%; height:auto; border-radius:8px;" />
                 </div>
@@ -610,15 +610,15 @@ if uploaded_file is None:
         df_metrics["label"] = df_metrics["scenario_id"].map(model_labels)
 
         st.markdown('<div style="display:none;">', unsafe_allow_html=True)
-        plt.style.use("dark_background")
-        fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), facecolor='#151c2c')
+        plt.style.use("default")
+        fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), facecolor='#ffffff')
         for ax in axes:
-            ax.set_facecolor('#151c2c')
+            ax.set_facecolor('#ffffff')
         accent = "#FF6B4A"
 
         sns.barplot(x="label", y="accuracy", data=df_metrics, ax=axes[0], color=accent, alpha=0.9, width=0.45)
-        axes[0].set_title("Akurasi Pengujian", fontsize=11, fontweight="bold", pad=15, color="#f8fafc")
-        axes[0].set_ylabel("Akurasi", fontsize=9, color="#cbd5e1"); axes[0].set_xlabel("")
+        axes[0].set_title("Akurasi Pengujian", fontsize=11, fontweight="bold", pad=15, color="#0f172a")
+        axes[0].set_ylabel("Akurasi", fontsize=9, color="#334155"); axes[0].set_xlabel("")
         axes[0].set_ylim(0.80, 1.0)
         for p in axes[0].patches:
             axes[0].annotate(f"{p.get_height()*100:.2f}%",
@@ -627,8 +627,8 @@ if uploaded_file is None:
                 fontsize=9, fontweight="bold", color="white")
 
         sns.barplot(x="label", y="f1_weighted", data=df_metrics, ax=axes[1], color="#475569", alpha=0.9, width=0.45)
-        axes[1].set_title("F1-Score Terbobot", fontsize=11, fontweight="bold", pad=15, color="#f8fafc")
-        axes[1].set_ylabel("F1-Score", fontsize=9, color="#cbd5e1"); axes[1].set_xlabel("")
+        axes[1].set_title("F1-Score Terbobot", fontsize=11, fontweight="bold", pad=15, color="#0f172a")
+        axes[1].set_ylabel("F1-Score", fontsize=9, color="#334155"); axes[1].set_xlabel("")
         axes[1].set_ylim(0.80, 1.0)
         for p in axes[1].patches:
             axes[1].annotate(f"{p.get_height():.4f}",
@@ -636,19 +636,19 @@ if uploaded_file is None:
                 ha="center", va="center", xytext=(0, 10), textcoords="offset points",
                 fontsize=9, fontweight="bold", color="white")
 
-        sns.barplot(x="label", y="inference_time_ms_per_image", data=df_metrics, ax=axes[2], color="#1e293b", alpha=0.9, width=0.45)
-        axes[2].set_title("Latensi Inferensi (ms/citra)", fontsize=11, fontweight="bold", pad=15, color="#f8fafc")
-        axes[2].set_ylabel("Latensi (ms)", fontsize=9, color="#cbd5e1"); axes[2].set_xlabel("")
+        sns.barplot(x="label", y="inference_time_ms_per_image", data=df_metrics, ax=axes[2], color="#cbd5e1", alpha=0.9, width=0.45)
+        axes[2].set_title("Latensi Inferensi (ms/citra)", fontsize=11, fontweight="bold", pad=15, color="#0f172a")
+        axes[2].set_ylabel("Latensi (ms)", fontsize=9, color="#334155"); axes[2].set_xlabel("")
         for p in axes[2].patches:
             axes[2].annotate(f"{p.get_height():.3f} ms",
                 (p.get_x() + p.get_width()/2, p.get_height() + 0.1),
                 ha="center", va="center", xytext=(0, 5), textcoords="offset points",
-                fontsize=9, fontweight="bold", color="#cbd5e1")
+                fontsize=9, fontweight="bold", color="#334155")
 
         for ax in axes:
             ax.spines["top"].set_visible(False); ax.spines["right"].set_visible(False)
-            ax.spines["left"].set_color("#1e293b"); ax.spines["bottom"].set_color("#1e293b")
-            ax.tick_params(colors="#94a3b8", labelsize=9)
+            ax.spines["left"].set_color("#f1f5f9"); ax.spines["bottom"].set_color("#f1f5f9")
+            ax.tick_params(colors="#475569", labelsize=9)
 
         plt.tight_layout()
         buf = io.BytesIO()
@@ -660,7 +660,7 @@ if uploaded_file is None:
 
         st.markdown(f"""
         <div class="saas-card">
-            <h4 style="margin-top:0; font-weight:700; color:#f8fafc; margin-bottom:15px;">Perbandingan Model: S5, S9, S11</h4>
+            <h4 style="margin-top:0; font-weight:700; color:#0f172a; margin-bottom:15px;">Perbandingan Model: S5, S9, S11</h4>
             <div style="text-align:center;">
                 <img src="data:image/png;base64,{img_b64}" style="max-width:100%; height:auto; border-radius:8px;" />
             </div>
@@ -670,7 +670,7 @@ if uploaded_file is None:
         # Comparison table
         table_html = f"""
         <div class="saas-card">
-            <h4 style="margin-top:0; font-weight:700; color:#f8fafc; margin-bottom:15px;">Tabel Perbandingan Performa Model</h4>
+            <h4 style="margin-top:0; font-weight:700; color:#0f172a; margin-bottom:15px;">Tabel Perbandingan Performa Model</h4>
             <div style="overflow-x: auto; width: 100%; -webkit-overflow-scrolling: touch;">
                 <table class="styled-table" style="min-width: 600px; margin: 0;">
                     <thead><tr>
@@ -885,11 +885,11 @@ else:
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Tingkat Keyakinan</div>
-                        <div style="font-size:1.4rem; font-weight:800; color:#f8fafc; margin-top:4px;">{cnn_confidence:.2%}</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:#0f172a; margin-top:4px;">{cnn_confidence:.2%}</div>
                     </div>
                 </div>
-                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #1e293b; display:flex; justify-content:space-between;">
-                    <span>Latensi</span><b style="color:#cbd5e1;">{cnn_time:.2f} ms</b>
+                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #f1f5f9; display:flex; justify-content:space-between;">
+                    <span>Latensi</span><b style="color:#475569;">{cnn_time:.2f} ms</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -904,11 +904,11 @@ else:
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Skor Keputusan</div>
-                        <div style="font-size:1.4rem; font-weight:800; color:#f8fafc; margin-top:4px;">{svm_decision:.3f}</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:#0f172a; margin-top:4px;">{svm_decision:.3f}</div>
                     </div>
                 </div>
-                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #1e293b; display:flex; justify-content:space-between;">
-                    <span>Latensi</span><b style="color:#cbd5e1;">{svm_time:.2f} ms</b>
+                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #f1f5f9; display:flex; justify-content:space-between;">
+                    <span>Latensi</span><b style="color:#475569;">{svm_time:.2f} ms</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -923,11 +923,11 @@ else:
                     <div style="margin-top:12px;"><span class="badge {bc}">{bl}</span></div>
                     <div style="margin-top:14px;">
                         <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; font-weight:600;">Tingkat Keyakinan</div>
-                        <div style="font-size:1.4rem; font-weight:800; color:#f8fafc; margin-top:4px;">{rf_confidence:.2%}</div>
+                        <div style="font-size:1.4rem; font-weight:800; color:#0f172a; margin-top:4px;">{rf_confidence:.2%}</div>
                     </div>
                 </div>
-                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #1e293b; display:flex; justify-content:space-between;">
-                    <span>Latensi</span><b style="color:#cbd5e1;">{rf_time:.2f} ms</b>
+                <div style="margin-top:auto; padding-top:15px; font-size:0.75rem; color:#94a3b8; border-top:1px solid #f1f5f9; display:flex; justify-content:space-between;">
+                    <span>Latensi</span><b style="color:#475569;">{rf_time:.2f} ms</b>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -950,16 +950,16 @@ else:
                     with g_col1:
                         st.markdown(f"""
                         <div class="saas-card" style="text-align:center; padding:16px;">
-                            <h5 style="margin-top:0; margin-bottom:12px; color:#f8fafc;">Masukan CNN (Resize Mentah)</h5>
+                            <h5 style="margin-top:0; margin-bottom:12px; color:#0f172a;">Masukan CNN (Resize Mentah)</h5>
                             <img src="data:image/png;base64,{arr_to_base64(img_resized_rgb)}" style="max-width:100%; height:auto; border-radius:8px;" />
                         </div>
                         """, unsafe_allow_html=True)
                     with g_col2:
                         st.markdown(f"""
                         <div class="saas-card" style="text-align:center; padding:16px;">
-                            <h5 style="margin-top:0; margin-bottom:12px; color:#f8fafc;">Heatmap Perhatian Grad-CAM</h5>
+                            <h5 style="margin-top:0; margin-bottom:12px; color:#0f172a;">Heatmap Perhatian Grad-CAM</h5>
                             <img src="data:image/png;base64,{arr_to_base64(overlay_rgb)}" style="max-width:100%; height:auto; border-radius:8px; margin-bottom:8px;" />
-                            <div style="font-size:0.75rem; color:#94a3b8; line-height:1.4;">Merah/jingga = area paling berpengaruh terhadap keputusan CNN dalam membedakan Segar vs Busuk.</div>
+                            <div style="font-size:0.75rem; color:#475569; line-height:1.4;">Merah/jingga = area paling berpengaruh terhadap keputusan CNN dalam membedakan Segar vs Busuk.</div>
                         </div>
                         """, unsafe_allow_html=True)
                 except Exception as e:
