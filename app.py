@@ -1,6 +1,8 @@
 import sys
 import textwrap
 import time
+import io
+import base64
 from pathlib import Path
 import cv2
 import joblib
@@ -10,7 +12,12 @@ import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-# Add project root to path so we can import src
+def arr_to_base64(img_rgb):
+    # Convert RGB to BGR for cv2 encoding
+    img_bgr = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR)
+    _, buffer = cv2.imencode('.png', img_bgr)
+    return base64.b64encode(buffer).decode('utf-8')
+
 project_root = Path(__file__).resolve().parent
 if str(project_root) not in sys.path:
     sys.path.insert(0, str(project_root))
@@ -20,11 +27,8 @@ from src.enhancement import apply_enhancement
 from src.segmentation import segment_fruit
 from src.features import extract_features
 from src.pipeline import process_image, image_to_cnn_input
-from src.evaluate import make_gradcam_heatmap, plot_gradcam
+from src.evaluate import make_gradcam_heatmap
 
-# ----------------------------------------------------
-# Page Configuration
-# ----------------------------------------------------
 st.set_page_config(
     page_title="Fruit Quality AI Analytics Dashboard",
     page_icon="🍎",
@@ -221,18 +225,41 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# Model Loading Helper Functions (Cached)
+# Metrics loader (dynamic - no hardcoding)
+# ----------------------------------------------------
+@st.cache_data
+def load_display_metrics():
+    result = {}
+    for sid, key in [(5, "svm"), (9, "rf"), (11, "cnn")]:
+        path = project_root / "results" / "metrics" / f"scenario_{sid:02d}.csv"
+        if path.exists():
+            try:
+                row = pd.read_csv(path).iloc[0]
+                result[key] = {
+                    "accuracy": float(row["accuracy"]),
+                    "f1": float(row["f1_weighted"]),
+                    "inference_ms": float(row["inference_time_ms_per_image"]),
+                    "scenario_id": sid,
+                }
+            except Exception:
+                pass
+    return result
+
+display_metrics = load_display_metrics()
+
+# ----------------------------------------------------
+# Model loaders
 # ----------------------------------------------------
 @st.cache_resource
-def load_mobilenet_model():
-    model_path = project_root / "results" / "models" / "mobilenetv2_s10_stage2.h5"
+def load_cnn_model():
+    # S11: CNN raw - best performing CNN (F1=0.987)
+    model_path = project_root / "results" / "models" / "mobilenetv2_s11_stage2.keras"
     if not model_path.exists():
-        st.sidebar.error(f"CNN model path not found: {model_path}")
+        st.sidebar.error(f"CNN model not found: {model_path}")
         return None
     try:
         import tensorflow as tf
-        model = tf.keras.models.load_model(model_path)
-        return model
+        return tf.keras.models.load_model(model_path)
     except Exception as e:
         st.sidebar.error(f"Failed to load CNN: {e}")
         return None
@@ -257,10 +284,51 @@ def load_rf_model():
     except Exception:
         return None
 
-# Load models
-model_cnn = load_mobilenet_model()
+model_cnn = load_cnn_model()
 model_svm = load_svm_model()
-model_rf = load_rf_model()
+model_rf  = load_rf_model()
+
+# ----------------------------------------------------
+# SIDEBAR
+# ----------------------------------------------------
+with st.sidebar:
+    st.markdown("""
+    <div style="text-align:center; margin-top:15px; margin-bottom:25px;">
+        <span style="font-size:3.5rem;">🍎</span>
+        <h2 style="margin-top:10px; font-weight:800; font-size:1.4rem; color:#f8fafc; letter-spacing:-0.5px;">Analisis Kualitas Buah</h2>
+        <span style="color:#94a3b8; font-size:0.8rem; font-weight:500;">Platform Demo Akademik</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### Model dalam demo ini")
+
+    cnn_acc = f"{display_metrics['cnn']['accuracy']*100:.2f}%" if "cnn" in display_metrics else "N/A"
+    svm_acc = f"{display_metrics['svm']['accuracy']*100:.2f}%" if "svm" in display_metrics else "N/A"
+    rf_acc  = f"{display_metrics['rf']['accuracy']*100:.2f}%"  if "rf"  in display_metrics else "N/A"
+
+    st.markdown(f"""
+    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">MobileNetV2 (CNN) - S11</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">Gambar mentah, tanpa pra-pemrosesan. Akurasi tertinggi secara keseluruhan.</p>
+        <span class="sidebar-badge">{cnn_acc} AKURASI</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">Support Vector Machine - S5</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">SSR + Gamma + Segmentasi + 220 fitur handcrafted.</p>
+        <span class="sidebar-badge">{svm_acc} AKURASI</span>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown(f"""
+    <div style="background:#1e293b; padding:16px; border-radius:12px; border:1px solid #334155; margin-bottom:12px;">
+        <h4 style="margin:0 0 4px 0; font-size:0.95rem; font-weight:700; color:#f8fafc;">Random Forest - S9</h4>
+        <p style="margin:0 0 10px 0; font-size:0.75rem; color:#94a3b8; line-height:1.3;">Pipeline identik S5, pengklasifikasi diganti Random Forest.</p>
+        <span class="sidebar-badge">{rf_acc} AKURASI</span>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
 # SIDEBAR
@@ -540,13 +608,16 @@ if uploaded_file is None:
     else:
         st.warning("Data metrik hasil pengujian tidak ditemukan di folder results/metrics/.")
 
+# ============================================================
+# ACTIVE INFERENCE VIEW
+# ============================================================
 else:
     # ----------------------------------------------------
     # ACTIVE INFERENCE VIEW: Uploaded Image Processing
     # ----------------------------------------------------
     file_bytes = np.frombuffer(uploaded_file.read(), np.uint8)
     img_bgr = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
-    
+
     if img_bgr is None:
         st.error("Gagal memuat gambar. Harap unggah gambar yang valid.")
     else:
@@ -583,32 +654,28 @@ else:
             if model_cnn is not None:
                 t0 = time.perf_counter()
                 cnn_probs = model_cnn.predict(cnn_input, verbose=0)[0]
-                cnn_time = (time.perf_counter() - t0) * 1000
-                cnn_idx = np.argmax(cnn_probs)
-                cnn_pred_class = "fresh" if cnn_idx == 0 else "rotten"
-                cnn_confidence = cnn_probs[cnn_idx]
-                
-            # Predict SVM
-            svm_pred_class = "N/A"
-            svm_time = 0.0
-            svm_decision = 0.0
+                cnn_time  = (time.perf_counter() - t0) * 1000
+                cnn_idx   = int(np.argmax(cnn_probs))
+                cnn_pred_class  = "fresh" if cnn_idx == 0 else "rotten"
+                cnn_confidence  = float(cnn_probs[cnn_idx])
+
+            # SVM S5
+            svm_pred_class = "N/A"; svm_time = 0.0; svm_decision = 0.0
             if model_svm is not None and features_input is not None:
                 t0 = time.perf_counter()
                 svm_idx = model_svm.predict(features_input)[0]
                 svm_time = (time.perf_counter() - t0) * 1000
                 svm_pred_class = "fresh" if svm_idx == 0 else "rotten"
                 try:
-                    svm_decision = model_svm.decision_function(features_input)[0]
+                    svm_decision = float(model_svm.decision_function(features_input)[0])
                 except Exception:
                     svm_decision = 0.0
-                    
-            # Predict Random Forest
-            rf_pred_class = "N/A"
-            rf_confidence = 0.0
-            rf_time = 0.0
+
+            # RF S9
+            rf_pred_class = "N/A"; rf_confidence = 0.0; rf_time = 0.0
             if model_rf is not None and features_input is not None:
                 t0 = time.perf_counter()
-                rf_idx = model_rf.predict(features_input)[0]
+                rf_idx   = model_rf.predict(features_input)[0]
                 rf_probs = model_rf.predict_proba(features_input)[0]
                 rf_time = (time.perf_counter() - t0) * 1000
                 rf_pred_class = "fresh" if rf_idx == 0 else "rotten"
@@ -639,10 +706,16 @@ else:
         st.markdown('<div class="section-header" style="margin-top: 0px; padding-top: 0px;">2. Multi-Model Inference Comparison</div>', unsafe_allow_html=True)
         
         m_col1, m_col2, m_col3 = st.columns(3)
-        
-        # Card 1: CNN
+
+        def _badge(pred):
+            if pred == "fresh":
+                return "badge-fresh", "SEGAR"
+            if pred == "rotten":
+                return "badge-rotten", "BUSUK"
+            return "badge-na", "N/A"
+
         with m_col1:
-            badge_class = "badge-fresh" if cnn_pred_class == "fresh" else "badge-rotten"
+            bc, bl = _badge(cnn_pred_class)
             st.markdown(f"""
             <div class="saas-card" style="margin-bottom: 0px;">
                 <div>
@@ -663,8 +736,7 @@ else:
                 </div>
             </div>
             """, unsafe_allow_html=True)
-            
-        # Card 2: SVM
+
         with m_col2:
             badge_class = "badge-fresh" if svm_pred_class == "fresh" else "badge-rotten"
             st.markdown(f"""
@@ -690,7 +762,7 @@ else:
             
         # Card 3: RF
         with m_col3:
-            badge_class = "badge-fresh" if rf_pred_class == "fresh" else "badge-rotten"
+            bc, bl = _badge(rf_pred_class)
             st.markdown(f"""
             <div class="saas-card" style="margin-bottom: 0px;">
                 <div>
@@ -742,4 +814,4 @@ else:
                         st.caption("Peta panas berwarna merah/jingga menunjukkan fitur citra yang menjadi fokus utama neural network dalam membedakan kualitas segar vs busuk.")
                         st.markdown('</div>', unsafe_allow_html=True)
                 except Exception as e:
-                    st.warning(f"Grad-CAM could not be generated: {e}")
+                    st.warning(f"Grad-CAM tidak dapat dihitung: {e}")
